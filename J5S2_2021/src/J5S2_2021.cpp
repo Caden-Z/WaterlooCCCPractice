@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <climits>
 
 enum EColor
 {
@@ -15,7 +16,7 @@ enum EType
 };
 
 void Enter(uint32_t&, const char*);
-void EnterModification(EType&, uint32_t&, uint32_t&, uint32_t&);
+void EnterModification(EType&, uint32_t&, const uint32_t&, const uint32_t&);
 uint32_t Clamp(const uint32_t&, const uint32_t&, const uint32_t&);
 uint32_t Preview(const std::vector<std::vector<bool>>&);
 
@@ -91,6 +92,7 @@ void Enter(uint32_t& stored, const char* ID)
     // create cache pointer
     int32_t* cache = new int32_t();
     std::cin >> *cache;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     
     // safety check
     if (cache == nullptr) return;
@@ -109,7 +111,7 @@ void Enter(uint32_t& stored, const char* ID)
     delete cache;
 }
 
-void EnterModification(EType& type, uint32_t& stored, uint32_t& M, uint32_t& N)
+void EnterModification(EType& type, uint32_t& stored, const uint32_t& M, const uint32_t& N)
 {
     // create cache pointer
 
@@ -118,7 +120,6 @@ void EnterModification(EType& type, uint32_t& stored, uint32_t& M, uint32_t& N)
     // redo if the first character is not R or C
     do
     {
-        std::cin.ignore();
         std::getline(std::cin, cache);
 
         if (cache.empty()) return;
